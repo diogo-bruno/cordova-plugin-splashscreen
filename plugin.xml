@@ -30,6 +30,7 @@
 
     <engines>
         <engine name="cordova-android" version=">=3.6.0" /><!-- Requires CordovaPlugin.preferences -->
+        <engine name="cordova-ios" version="<6.0.0" />
         <engine name="cordova-windows" version=">=4.4.0" />
     </engines>
 
@@ -43,6 +44,27 @@
         </config-file>
 
         <source-file src="src/android/SplashScreen.java" target-dir="src/org/apache/cordova/splashscreen" />
+
+        <js-module src="www/splashscreen.js" name="SplashScreen">
+            <clobbers target="navigator.splashscreen" />
+        </js-module>
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+		    <feature name="SplashScreen">
+			    <param name="ios-package" value="CDVSplashScreen"/>
+			    <param name="onload" value="true"/>
+		    </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVSplashScreen.h" />
+        <source-file src="src/ios/CDVSplashScreen.m" />
+        <header-file src="src/ios/CDVViewController+SplashScreen.h" />
+        <source-file src="src/ios/CDVViewController+SplashScreen.m" />
+
+	    <framework src="CoreGraphics.framework" />
 
         <js-module src="www/splashscreen.js" name="SplashScreen">
             <clobbers target="navigator.splashscreen" />
